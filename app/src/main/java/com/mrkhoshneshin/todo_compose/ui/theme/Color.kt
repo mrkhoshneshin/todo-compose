@@ -2,7 +2,8 @@ package com.mrkhoshneshin.todo_compose.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+val Purple = Color(0xFF495CE2)
+val Purple_light = Color(0xFF5D65EB)
+val Blue = Color(0xFF0173F3)
+val Blue_light = Color(0xFF1F87FD)
+val BackgroundColor = Color(0xFFF7F7F7)
