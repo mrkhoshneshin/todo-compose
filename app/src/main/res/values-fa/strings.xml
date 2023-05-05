@@ -3,4 +3,6 @@
     <string name="app_name">تسکینو</string>
     <string name="noTaskFound">فعلا هیچ چیزی واسه انجام نداری</string>
     <string name="addTask">افزودن</string>
+    <string name="title">عنوان</string>
+    <string name="description">توضیحات</string>
 </resources>

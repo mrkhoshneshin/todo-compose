@@ -3,10 +3,16 @@ package com.mrkhoshneshin.todo_compose.ui.feature
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.mrkhoshneshin.todo_compose.R
 import com.mrkhoshneshin.todo_compose.data.Task
@@ -18,22 +24,30 @@ fun TaskItem(
     task: Task,
     onTaskCompleteButtonClicked: () -> Unit
 ) {
+    var isCompleted by remember { mutableStateOf(task.isCompleted) }
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.Center
     ) {
         Row(modifier = Modifier.fillMaxWidth()) {
-            IconButton(onClick = { onTaskCompleteButtonClicked() }) {
+            IconButton(onClick = {
+                task.isCompleted = !task.isCompleted
+                onTaskCompleteButtonClicked()
+                isCompleted = !isCompleted
+            }) {
                 Icon(
-                    painter = painterResource(id = if (task.isCompleted) R.drawable.circle_check else R.drawable.circle),
+                    painter = painterResource(id = if (isCompleted) R.drawable.circle_check else R.drawable.circle),
                     contentDescription = "Task icon",
-                    tint = if (task.isCompleted) Blue else Green
+                    tint = if (isCompleted) Green else Blue
                 )
             }
             Spacer(modifier = Modifier.width(5.dp))
             Text(text = task.title)
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(text = task.desc)
+        Text(
+            text = task.desc,
+            style = TextStyle(fontSize = MaterialTheme.typography.body1.fontSize)
+        )
     }
 
 }

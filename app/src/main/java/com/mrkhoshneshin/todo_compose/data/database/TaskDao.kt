@@ -5,11 +5,13 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.mrkhoshneshin.todo_compose.data.Task
+import kotlinx.coroutines.flow.Flow
+
 @Dao
 interface TaskDao {
 
     @Query("SELECT * FROM tasks")
-    suspend fun getAllTasks(): List<Task>
+    fun getAllTasks(): Flow<List<Task>>
 
     @Insert
     suspend fun insert(task: Task): Long
