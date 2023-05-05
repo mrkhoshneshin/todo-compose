@@ -8,9 +8,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mrkhoshneshin.todo_compose.data.Screen
+import com.mrkhoshneshin.todo_compose.data.Task
+import com.mrkhoshneshin.todo_compose.ui.feature.addTask.data.AddTaskViewModel
 import com.mrkhoshneshin.todo_compose.ui.feature.addTask.ui.AddTaskScreen
 import com.mrkhoshneshin.todo_compose.ui.feature.empty_state.EmptyStateScreen
-import com.mrkhoshneshin.todo_compose.ui.feature.empty_state.EmptyStateScreenPreview
 import com.mrkhoshneshin.todo_compose.ui.feature.home.data.HomeViewModel
 import com.mrkhoshneshin.todo_compose.ui.feature.home.ui.HomeScreen
 import com.mrkhoshneshin.todo_compose.ui.feature.splash.SplashScreen
@@ -46,7 +47,12 @@ fun NavGraph() {
         }
 
         composable(Screen.AddTaskScreen.route) {
-            AddTaskScreen()
+            val viewModel = hiltViewModel<AddTaskViewModel>()
+            AddTaskScreen(onAddButtonClicked = { title, description ->
+                val task = Task(title = title, desc = description)
+                viewModel.addTask(task)
+                navController.popBackStack()
+            })
         }
     }
 }

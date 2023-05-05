@@ -4,9 +4,10 @@ import android.content.Context
 import androidx.room.Room
 import com.mrkhoshneshin.todo_compose.data.database.AppDatabase
 import com.mrkhoshneshin.todo_compose.data.database.TaskDao
+import com.mrkhoshneshin.todo_compose.ui.feature.addTask.data.repository.AddTaskRepository
+import com.mrkhoshneshin.todo_compose.ui.feature.addTask.data.repository.AddTaskRepositoryImpl
 import com.mrkhoshneshin.todo_compose.ui.feature.home.data.repository.HomeRepository
 import com.mrkhoshneshin.todo_compose.ui.feature.home.data.repository.HomeRepositoryImpl
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,7 +30,14 @@ class AppModule {
     @Provides
     @Singleton
     @Inject
-    fun bindHomeRepository(taskDao: TaskDao): HomeRepository {
+    fun provideHomeRepository(taskDao: TaskDao): HomeRepository {
         return HomeRepositoryImpl(taskDao)
+    }
+
+    @Provides
+    @Singleton
+    @Inject
+    fun provideAddTaskRepository(taskDao: TaskDao): AddTaskRepository{
+        return AddTaskRepositoryImpl(taskDao)
     }
 }

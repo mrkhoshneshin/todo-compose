@@ -7,6 +7,7 @@ import com.mrkhoshneshin.todo_compose.data.Task
 import com.mrkhoshneshin.todo_compose.ui.feature.home.data.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -20,12 +21,20 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
         }
     }
 
+    fun addTask(task: Task){
+        viewModelScope.launch {
+            homeRepository.addTask(task)
+        }
+    }
+
     private val _tasks = MutableStateFlow<List<Task>>(emptyList())
     val tasks = _tasks.asStateFlow()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            _tasks.value = homeRepository.getAllTasks()
+            homeRepository.getAllTasks().collect{
+                _tasks.value = it
+            }
         }
     }
 }
