@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">todo-compose</string>
+    <string name="noTaskFound">You have nothing to do.</string>
+    <string name="addTask">Add</string>
 </resources>

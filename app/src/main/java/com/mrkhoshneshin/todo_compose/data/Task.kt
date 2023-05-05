@@ -1,8 +1,13 @@
 package com.mrkhoshneshin.todo_compose.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "tasks")
 data class Task(
-    val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null,
     val title: String,
     val desc: String,
-    val hasDone: Boolean = false
+    val isCompleted: Boolean = false
 )
